@@ -1,0 +1,14 @@
+{
+  "name": "unblock163musicclient-remote",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "nondanee",
+  "license": "MIT",
+  "dependencies": {
+    "@nondanee/unblockneteasemusic": "^0.19.4"
+  }
+}
