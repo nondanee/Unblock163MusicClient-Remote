@@ -9,8 +9,20 @@
   ],
   "routes": [
     {
+      "src": "/match",
+      "dest": "/match.js"
+    },
+    {
+      "src": "/like",
+      "dest": "/like.js"
+    },
+    {
+      "src": "/manipulate",
+      "dest": "/manipulate.js"
+    },
+    {
       "src": "/.*",
-      "dest": "/index.js"
+      "dest": "/null.js"
     }
   ],
   "regions": [

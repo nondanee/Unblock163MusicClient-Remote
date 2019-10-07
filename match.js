@@ -1,16 +1,17 @@
-const parse = require('url').parse
 const match = require('@nondanee/unblockneteasemusic')
 
 module.exports = (req, res) => {
-	(parse(req.url).pathname === '/xapi/v1/match' && req.query.id && !isNaN(req.query.id) ? 
-		match(req.query.id, ['qq'])
+	let id = (req.body || {}).id
+	return (id && !isNaN(id) ?
+		match(id, ['qq'])
 		.then(song => [Object.assign(song, {
 			code: 200,
 			type: 'mp3',
-			id: parseInt(req.query.id),
-			md5: Array(32 - req.query.id.length + 1).join('0') + req.query.id,
+			id: parseInt(id),
+			br: song.br || 128000,
+			md5: Array(32 - id.length + 1).join('0') + id,
 			matchedPlatform: 'QQ音乐',
-			matchedSongName: req.query.id + '_FROM_QQ',
+			matchedSongName: id + '_FROM_QQ',
 			matchedArtistName: '',
 			matchedDuration: false
 		})])
