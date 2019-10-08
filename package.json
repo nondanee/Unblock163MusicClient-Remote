@@ -6,9 +6,13 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "engines": {
+    "node": "10.x"
+  },
   "author": "nondanee",
   "license": "MIT",
   "dependencies": {
-    "@nondanee/unblockneteasemusic": "^0.19.4"
+    "@nondanee/unblockneteasemusic": "^0.19.4",
+    "express": "^4.17.1"
   }
 }
