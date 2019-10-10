@@ -12,7 +12,7 @@
   "author": "nondanee",
   "license": "MIT",
   "dependencies": {
-    "@nondanee/unblockneteasemusic": "^0.19.4",
+    "@nondanee/unblockneteasemusic": "^0.20.0",
     "express": "^4.17.1"
   }
 }
