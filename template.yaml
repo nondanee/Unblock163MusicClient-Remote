@@ -1,0 +1,19 @@
+Resources:
+  default:
+    Type: 'TencentCloud::Serverless::Namespace'
+    unblock163musicclient:
+      Properties:
+        CodeUri: ./
+        Description: 'Serverless Backend for Unblock163MusicClient-Xposed'
+        Environment:
+          Variables:
+            NODE_ENV: production
+        Handler: index.main
+        MemorySize: 128
+        Timeout: 3
+        Role: QCS_SCFExcuteRole
+        Runtime: Nodejs8.9
+      Type: 'TencentCloud::Serverless::Function'
+Globals:
+  Function:
+    Timeout: 10

@@ -1,37 +1,37 @@
-// const match = require('@nondanee/unblockneteasemusic')
+const match = require('@nondanee/unblockneteasemusic')
 
-const find = require('@nondanee/unblockneteasemusic/provider/find')
-const qq = require('@nondanee/unblockneteasemusic/provider/qq')
+const trace = song => {
+	const rule = {
+		'qq.com/': {key: 'QQ', name: 'QQ音乐'}, //368794
+		'kuwo.cn/': {key: 'KUWO', name: '酷我音乐'}, //185670
+		'migu.cn/': {key: 'MIGU', name: '咪咕音乐'}, //185678
+		'kugou.com/': {key: 'KUGOU', name: '酷狗音乐'}, //190449
+		'dmhmusic.com/': {key: 'BAIDU', name: '百度音乐'}, //169185
+		'xiami.net/': {key: 'XIAMI', name: '虾米音乐'}, //1357785909
+		'joox.com/': {key: 'JOOX', name: 'JOOX'} //418603077
+	}
+	let target = Object.keys(rule).find(pattern => song.url.includes(pattern))
+	song.source = target ? rule[target] : {key: 'UNKNOWN', name: '未知来源'}
+	return song
+}
 
 module.exports = (req, res) => {
 	let id = (req.body || {}).id
 	return (id && !isNaN(id) ?
-		find(id).then(qq.check)
-		.then(url => ({
-			url,
-			size: 0,
+		match(id)
+		.then(trace)
+		.then(song => [Object.assign(song, {
 			code: 200,
-			br: 128000,
 			type: 'mp3',
 			id: parseInt(id),
-			md5: Array(32 - id.length + 1).join('0') + id,
-			matchedPlatform: 'QQ音乐',
-			matchedSongName: id + '_FROM_QQ',
+			br: song.br || 128000,
+			md5: song.md5 || Array(32 - id.length + 1).join('0') + id,
+			matchedPlatform: song.source.name,
+			matchedSongName: id + '_FROM_' + song.source.key,
 			matchedArtistName: '',
-			matchedDuration: false
-		}))
-		// match(id, ['qq'])
-		// .then(song => [Object.assign(song, {
-		// 	code: 200,
-		// 	type: 'mp3',
-		// 	id: parseInt(id),
-		// 	br: song.br || 128000,
-		// 	md5: Array(32 - id.length + 1).join('0') + id,
-		// 	matchedPlatform: 'QQ音乐',
-		// 	matchedSongName: id + '_FROM_QQ',
-		// 	matchedArtistName: '',
-		// 	matchedDuration: false
-		// })])
+			matchedDuration: false,
+			source: undefined
+		})])
 		.catch(() => null) : Promise.resolve(null)
 	)
 	.then(data => ({code: data ? 200 : 404, data}))
