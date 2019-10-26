@@ -21,6 +21,14 @@
       "dest": "/manipulate.js"
     },
     {
+      "src": "/pub",
+      "dest": "/pub.js"
+    },
+    {
+      "src": "/songx",
+      "dest": "/songx.js"
+    },
+    {
       "src": "/.*",
       "dest": "/null.js"
     }
