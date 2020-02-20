@@ -1,30 +1,36 @@
-const join = require('path').join
-const parse = require('querystring').parse
+const resolvePath = (...path) => require('path').join.apply(null, [__dirname].concat(path))
 
-const routes = require(join(__dirname,'now')).routes.map(route => ({path: route.src + '$', handler: require(join(__dirname, route.dest))}))
+const bodyParse = text => {
+  let body = {}
+  try { body = JSON.parse(text) } catch(error) { body = require('querystring').parse(text || '') }
+  return body
+}
 
-const dock = (req, handler) =>
-	new Promise(resolve => {
-		let status = 200
-		const res = {
-			status: code => (status = code, res),
-			json: object => resolve({status, body: object})
-		}
-		handler(req, res).catch(error => resolve({status: 500, body: error}))
-	})
+const routes = require(resolvePath('now')).routes.map(route =>
+  ({ path: route.src + '$', handler: require(resolvePath(route.dest)) })
+)
+
+const target = path => routes.find(route => (new RegExp(route.path)).test(path))
+
+const dock = (req, handler) => new Promise(resolve => {
+  let status = 200
+  const res = { status: code => (status = code, res), json: body => resolve({ status, body }) }
+  handler(req, res).catch(error => resolve({ status: 500, body: error }))
+})
 
 module.exports.main = async (event, context, callback) => {
-	let path = event.path.replace(event.requestContext.path, '') || '/'
-	let route = routes.find(route => (new RegExp(route.path)).test(path))
-	let req = {body: parse(event.body || ''), headers: event.headers}
-	let output = await dock(req, route.handler)
-	return output.body
+  const path = event.path.replace(event.requestContext.path, '') || '/'
+  const route = target(path)
+  const req = { body: bodyParse(event.body), headers: event.headers, query: event.queryString, path }
+  const output = await dock(req, route.handler)
+  return output.body
 }
 
 module.exports.handler = (req, res, context) => {
-	let route = routes.find(route => (new RegExp(route.path)).test(req.path))
-	require('body/form')(req, (error, body) =>
-		dock({body, headers: req.headers}, route.handler)
-		.then(output => (res.setHeader('content-type', 'application/json'), res.send(JSON.stringify(output.body))))
-	)
+  const { path, headers } = req
+  const route = target(path)
+  require('raw-body')(req, (error, body) =>
+    dock({ body: bodyParse(body), headers, query: req.queries, path }, route.handler)
+      .then(output => (res.setHeader('content-type', 'application/json'), res.send(JSON.stringify(output.body))))
+  )
 }

@@ -1,14 +1,15 @@
 const request = require('@nondanee/unblockneteasemusic/request')
-const encryptRequest = require('@nondanee/unblockneteasemusic/crypto').linuxapi.encryptRequest
+const encrypt = require('@nondanee/unblockneteasemusic/crypto').linuxapi.encryptRequest
 
 module.exports = (req, res) => {
-	const body = (req.body || {})
-	let id = parseInt(body.id) || 0
-	let br = parseInt(body.br) || 320000
-	let query = encryptRequest('http://music.163.com/api/song/enhance/player/url', {ids: [id], br})
-	return (id ? 
-		request('POST', query.url, {'cookie': process.env['COOKIE'] || null, 'content-type': 'application/x-www-form-urlencoded'}, query.body).then(response => response.json()) : Promise.reject()
-	)
-	.catch(() => ({code: 404, data: null}))
-	.then(body => res.status(200).json(body))
+  let { id, br } = req.body || {}
+  id = parseInt(id) || 0
+  br = parseInt(br) || 320000
+  return Promise.resolve()
+    .then(() => !id && Promise.reject())
+    .then(() => encrypt('http://music.163.com/api/song/enhance/player/url', { ids: [id], br }))
+    .then(({ url, body }) => request('POST', url, { 'cookie': process.env.COOKIE || null, 'content-type': 'application/x-www-form-urlencoded' }, body))
+    .then(response => response.json())
+    .catch(() => ({ code: 404, data: null }))
+    .then(body => res.status(200).json(body))
 }
