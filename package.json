@@ -1,7 +1,7 @@
 {
   "name": "unblock163musicclient-remote",
   "version": "0.0.1",
-  "description": "",
+  "description": "Serverless Backend for Unblock163MusicClient",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -12,7 +12,7 @@
   "author": "nondanee",
   "license": "MIT",
   "dependencies": {
-    "@nondanee/unblockneteasemusic": "^0.20.2",
+    "@nondanee/unblockneteasemusic": "^0.23.1",
     "express": "^4.17.1"
   }
 }

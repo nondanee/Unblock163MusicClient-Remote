@@ -29,6 +29,14 @@
       "dest": "/songx.js"
     },
     {
+      "src": "/UnblockMusic/getNeteaseSongInfo",
+      "dest": "/dolby.js"
+    },
+    {
+      "src": "/UnblockMusic/getKuwoSongInfo",
+      "dest": "/dolby.js"
+    },
+    {
       "src": "/.*",
       "dest": "/null.js"
     }
