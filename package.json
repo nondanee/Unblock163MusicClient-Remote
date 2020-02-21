@@ -13,7 +13,6 @@
   "license": "MIT",
   "dependencies": {
     "@nondanee/unblockneteasemusic": "https://github.com/nondanee/UnblockNeteaseMusic/tarball/master",
-    "express": "^4.17.1",
     "long": "^4.0.0"
   }
 }
