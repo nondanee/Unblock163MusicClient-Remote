@@ -1,4 +1,4 @@
-const request = require('@nondanee/unblockneteasemusic/request')
+const request = require('@nondanee/unblockneteasemusic/src/request')
 const query = (...options) => request(...options).then(response => response.json())
 
 module.exports = (req, res) => {

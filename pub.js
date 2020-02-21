@@ -1,4 +1,4 @@
-const request = require('@nondanee/unblockneteasemusic/request')
+const request = require('@nondanee/unblockneteasemusic/src/request')
 
 module.exports = (req, res) => {
   const { cookie } = req.headers

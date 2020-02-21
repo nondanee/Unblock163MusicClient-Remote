@@ -1,5 +1,5 @@
-const request = require('@nondanee/unblockneteasemusic/request')
-const encrypt = require('@nondanee/unblockneteasemusic/crypto').linuxapi.encryptRequest
+const request = require('@nondanee/unblockneteasemusic/src/request')
+const encrypt = require('@nondanee/unblockneteasemusic/src/crypto').linuxapi.encryptRequest
 
 module.exports = (req, res) => {
   let { id, br } = req.body || {}
