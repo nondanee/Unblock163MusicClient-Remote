@@ -37,6 +37,10 @@
       "dest": "/dolby.js"
     },
     {
+      "src": "/UnblockMusic\\w*/getNotice",
+      "dest": "/getNotice.js"
+    },
+    {
       "src": "/.*",
       "dest": "/null.js"
     }
