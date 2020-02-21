@@ -23,7 +23,7 @@ const dock = (req, handler) => new Promise(resolve => {
 const entry = (req, res) => {
   const { pathname, search } = require('url').parse(req.url)
   const route = target(pathname)
-  const data = { query: parse(search.slice(1)), headers: req.headers, path: pathname }
+  const data = { query: parse((search || '').slice(1)), headers: req.headers, path: pathname }
   read(req)
     .then(body => dock(Object.assign(data, { body: parse(body) }), route.handler))
     .then(output => (res.writeHead(200, { 'content-type': 'application/json' }), res.end(JSON.stringify(output.body))))
