@@ -12,7 +12,8 @@
   "author": "nondanee",
   "license": "MIT",
   "dependencies": {
-    "@nondanee/unblockneteasemusic": "^0.23.1",
-    "express": "^4.17.1"
+    "@nondanee/unblockneteasemusic": "https://github.com/nondanee/UnblockNeteaseMusic/tarball/master",
+    "express": "^4.17.1",
+    "long": "^4.0.0"
   }
 }
