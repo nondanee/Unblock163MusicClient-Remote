@@ -29,15 +29,15 @@
       "dest": "/songx.js"
     },
     {
-      "src": "/UnblockMusic/getNeteaseSongInfo",
+      "src": "/UnblockMusic\\w*/getNeteaseSongInfo",
       "dest": "/dolby.js"
     },
     {
-      "src": "/UnblockMusic/getKuwoSongInfo",
+      "src": "/UnblockMusic\\w*/getKuwoSongInfo",
       "dest": "/dolby.js"
     },
     {
-      "src": "/UnblockMusicV2/getNotice",
+      "src": "/UnblockMusic\\w*/getNotice",
       "dest": "/getNotice.js"
     },
     {
