@@ -13,6 +13,12 @@ Resources:
         Timeout: 3
         Role: QCS_SCFExcuteRole
         Runtime: Nodejs8.9
+        Events:
+          gateway:
+            Type: APIGW
+            Properties:
+              StageName: release
+              HttpMethod: ANY
       Type: 'TencentCloud::Serverless::Function'
 Globals:
   Function:

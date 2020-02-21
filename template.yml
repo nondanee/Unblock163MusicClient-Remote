@@ -9,7 +9,7 @@ Resources:
       Type: 'Aliyun::Serverless::Function'
       Properties:
         Handler: index.handler
-        Runtime: nodejs8
+        Runtime: nodejs10
         CodeUri: './'
       Events:
         httpTrigger:
