@@ -22,6 +22,7 @@ module.exports.main = async (event, context, callback) => {
   const path = event.path.replace(event.requestContext.path, '') || '/'
   const route = target(path)
   const req = { body: bodyParse(event.body), headers: event.headers, query: event.queryString, path }
+  console.log('req', req)
   const output = await dock(req, route.handler)
   return output.body
 }
