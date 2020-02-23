@@ -9,6 +9,6 @@ const routes = {
 
 module.exports = (req, res) => {
   req.body = req.query
-  const choice = Object.keys(routes).find(mark => (req.baseUrl || req.path).includes(mark))
+  const choice = Object.keys(routes).find(mark => (req.path || '').includes(mark))
   return (routes[choice] || error)(req, res)
 }
