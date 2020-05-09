@@ -35,5 +35,6 @@ module.exports = (req, res) => {
       source: undefined
     }))
     .then(song => ({ code: 200, data: [song] }))
+    .catch(() => ({ code: 404, data: null }))
     .then(body => res.status(200).json(body))
 }
