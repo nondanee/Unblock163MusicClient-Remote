@@ -1,5 +1,4 @@
 {
-  "name": "unblock163musicclient",
   "version": 2,
   "builds": [
     {
@@ -40,9 +39,5 @@
       "src": "/.*",
       "dest": "/null.js"
     }
-  ],
-  "regions": [
-    "hnd1",
-    "sfo1"
   ]
 }
